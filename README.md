@@ -1,9 +1,9 @@
 An exploration of interfacing Blender with the Vive. In order for the code to work, you will need the following installed:
-  PyOpenGL
-  PyOpenGL-accelerate
-  PyOpenVR
-  Blender3D
-  GLUT
+<p> PyOpenGL </p>
+<p> PyOpenGL-accelerate </p>
+<p> PyOpenVR </p>
+<p> Blender3D </p>
+<p> GLUT </p>
   
 Note that in order for these libraries to be accessed from the Blender interface, they need to be installed within the Python directory installed with Blender, not the system's Python directory. Blender and the system use two different Python installations.
 
