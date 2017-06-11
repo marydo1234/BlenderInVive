@@ -1,12 +1,37 @@
-An exploration of interfacing Blender with the Vive. In order for the code to work, you will need the following installed:
-<p> PyOpenGL </p>
-<p> PyOpenGL-accelerate </p>
-<p> PyOpenVR </p>
-<p> Blender3D </p>
-<p> GLUT </p>
-  
-Note that in order for these libraries to be accessed from the Blender interface, they need to be installed within the Python directory installed with Blender, not the system's Python directory. Blender and the system use two different Python installations.
+Prerequisites
 
-To run the application, just copy the Python code into the Blender text editor and then run the script.
+This project mostly requires knowledge of OpenGL 3 (PyOpenGL), OpenVR (PyOpenVR), and the Blender/Python API. The Blender/Python API is used to get data about the model from Blender (and to update Blender), and OpenGL is then used to tell OpenVR what to render to the Vive display. Although not implemented yet, OpenVR is also used to get the controller coordinates from the Vive, and then these coordinates would then be used to update Blender.
 
-Note that this is a research project and is not a full blown application.
+Previous Bugs and Fixes
+
+The current design of the software is rather unintuitive due to several problems encountered over the course of the term. One main issue encountered was that Blender would freeze when either a window or an OpenGL context was created within Blender. The former was fixed by using torn off windows. However, it didn’t fix the latter problem. 
+
+As a result, to fix both problems, sockets were used for interprocess communications. In this case, the OpenGL/OpenVR code was separated from the Blender python code into a separate process. The Blender python code would act as a “Client” while the OpenGL/OpenVR code would act as a “Server.” The Blender python code would send model data to the OpenGL/OpenVR code, which will then render the model onto the Vive display. Although not implemented yet, this should also work the other direction, from OpenGL/OpenVR code to Blender – this would allow user interaction with the model from the Vive.
+
+Current Model
+
+So the current software model is something like the following:
+                                               
+Blender/Python API – Client                        ZeroMQ – Socket Implementation                   OpenVR/OpenGL – Server                                                       Vive Controllers/Display
+
+Current Concerns
+
+Using sockets may or may not cause issues with execution speed. Currently the data passed over TCP is small in volume. Problems may occur when the scale of the data increases. 
+
+In addition, there seems to be a blinking problem on the Vive display when the program executes. It is unknown whether this is due to the sensors or to the code.
+
+How to Run the Current Program
+
+Use Windows. Use Pip to install the following. It’s recommended to install using .whl files from www.lfd.uci.edu/~gohlke/pythonlibs/. 
+
+Make sure PyOpenGL, PyOpenVR, and ZeroMQ are installed in Blender’s Python directory. Blender’s Python interface uses the Python version that comes installed with Blender, not the Python version installed on the system. As a result, also make sure to install for the correct Python version – Blender’s python version is usually behind the most recent update. If using a 64-bit system, make sure to check PyOpenVR’s issues log for PyOpenVR.
+
+Run Server.py using the following command: python Server.py.
+
+Run Client.py from within the provided text editor in Blender.
+
+
+I know the instructions here are a bit sparse, but I’ll provide more detailed instructions on the Github page soon (the instructions are a bit long). I hope this is okay for now?
+
+Mary
+
