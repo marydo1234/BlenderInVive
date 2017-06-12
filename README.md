@@ -11,8 +11,7 @@ As a result, to fix both problems, sockets were used for interprocess communicat
 Current Model
 
 So the current software model is something like the following:
-                                               
-Blender/Python API – Client                        ZeroMQ – Socket Implementation                   OpenVR/OpenGL – Server                                                       Vive Controllers/Display
+Blender/Python API (Client)      <-->    ZeroMQ (Socket Implementation)       <-->      OpenVR/OpenGL (Server)      <-->                                                 Vive Controllers/Display
 
 Current Concerns
 
@@ -29,9 +28,3 @@ Make sure PyOpenGL, PyOpenVR, and ZeroMQ are installed in Blender’s Python dir
 Run Server.py using the following command: python Server.py.
 
 Run Client.py from within the provided text editor in Blender.
-
-
-I know the instructions here are a bit sparse, but I’ll provide more detailed instructions on the Github page soon (the instructions are a bit long). I hope this is okay for now?
-
-Mary
-
