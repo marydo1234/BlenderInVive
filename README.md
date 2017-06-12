@@ -10,7 +10,8 @@ As a result, to fix both problems, sockets were used for interprocess communicat
 
 **Current Model**
 
-So the current software model is something like the following:
+So the current software model is something like the following: 
+
 Blender/Python API (Client)      <-->    ZeroMQ (Socket Implementation)       <-->      OpenVR/OpenGL (Server)      <-->                                                 Vive Controllers/Display
 
 **Current Concerns**
